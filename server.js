@@ -20,20 +20,22 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 app.use(cors())
+
+
 //routes
-app.use("api/v1/auth", authRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 //rest api
-app.get("/",(req, res) =>{
-   res.send("<h1>welcome to ecommerce app</h1>");
-   
-   });
+app.get("/", (req, res) => {
+    res.send("<h1>welcome to ecommerce app</h1>");
+
+});
 
 
 //PORT
-const PORT= process.env.PORT || 8080;
- 
+const PORT = process.env.PORT || 8080;
+
 //run listen
-app.listen(PORT, ()=>{
+app.listen(PORT, () => {
     console.log(`Server Running on${process.env.DEV_MODE} mode on port ${PORT}`.bgCyan.white);
 });
