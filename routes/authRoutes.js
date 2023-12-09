@@ -15,6 +15,6 @@ router.route('/register').post(registerController);
 router.route('/login').post(loginController);
 
 //test routes
-router.route('/test').get(isAdmin,requireSignIn,testController); //two middlewares present isAdmin and requireSignIn
+router.get('/test', requireSignIn, isAdmin, testController); //two middlewares present isAdmin and requireSignIn
 
 export default router;
