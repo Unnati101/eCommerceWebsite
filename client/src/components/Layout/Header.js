@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink, Link } from 'react-router-dom';
- import { GiShoppingBag } from 'react-icons/gi'
+import { GiShoppingBag } from "react-icons/gi";
 
 const Header = () => {
   return (
@@ -12,7 +12,7 @@ const Header = () => {
     </button>
     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
       <Link to="/" className="navbar-brand" >
-      <GiShoppingBag />Ecommerce App
+      🛒 Ecommerce App
         </Link>
       <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
         <li className="nav-item">
