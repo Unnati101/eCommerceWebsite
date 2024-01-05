@@ -4,7 +4,7 @@ import JWT from "jsonwebtoken";
 
 export const registerController = async(req, res) =>{
     try{
-      const {name, email,password,phone, address} =req.body
+      const {name, email,password,phone, address,answer } =req.body
       //validations
       if(!name){
          return res.send({message: 'Name is required'})
@@ -26,6 +26,10 @@ export const registerController = async(req, res) =>{
         return res.send({message: 'address is required'})
 
      }
+     if(!answer){
+        return res.send({message: 'answer is required'})
+
+     }
      //check user
      const existingUser = await userModel.findOne({email})
    //existing user
@@ -38,7 +42,7 @@ if(existingUser){
 //register user
 const  hashedPassword = await hashPassword(password)
 //save
-const user =  await new userModel({name,email,phone,address,password:hashedPassword}).save();
+const user =  await new userModel({name,email,phone,address,password:hashedPassword, answer}).save();
 
 res.status(201).send({
     success:true,
@@ -105,6 +109,43 @@ export const loginController = async(req,res)=>{
             success:false,
             message: 'Error in login',
             error
+        })
+    }
+};
+
+//forgot-password controller
+export const forgotPasswordController = async(req,res)=>{
+    try{
+        const {email, question, newPassword} = req.body
+        if(!email){
+            res.status(400).send({message: 'Email not required' })
+        }
+        if(!answer){
+            res.status(400).send({message: 'answer  not required' })
+        }
+        if(!newPassword){
+            res.status(400).send({message: 'New Password not required' })
+        }
+       //check
+       const user = await userModel.findOne({email,answer})
+       //validation 
+       if(!user){
+        return res.status(404).send({
+            success:false,
+            message: 'Wrong email Or answer'
+        })
+       }
+       const hashed = await hashPassword(newPassword);
+       await userModel.findByIdAndUpdate(user._id, {password : hashed});
+       res.status(200).send({
+        success:true,
+        message: "Password Reset Successfully",
+       });
+    }catch(error){
+        console.log(error)
+        res.status(500).send({
+            success:false,
+            message: 'Something went wrong',
         })
     }
 };

@@ -3,13 +3,15 @@ import Layout from '../../components/Layout/Layout'
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import "../../styles/AuthStyle.css";
 
 const Register = () => {
-  const[name, setName]=useState("")
-  const[email, setEmail]=useState("")
-  const[password, setPassword]=useState("")
-  const[phone, setPhone]=useState("")
-  const[address, setAddress]=useState("")
+  const[name, setName]=useState("");
+  const[email, setEmail]=useState("");
+  const[password, setPassword]=useState("");
+  const[phone, setPhone]=useState("");
+  const[address, setAddress]=useState("");
+  const[answer, setAnswer]=useState("");
   const navigate= useNavigate()
   
   //form function
@@ -21,7 +23,8 @@ const Register = () => {
     email,
     password,
     phone,
-    address
+    address,
+    answer
   }
     );
     if(res && res.data.success){
@@ -103,10 +106,22 @@ const Register = () => {
      />
     
   </div>
+  <div className="mb-3">
+    <input 
+    type="text" 
+    value={answer}
+    onChange={(e)=> setAnswer(e.target.value)}
+    className="form-control"
+     id="exampleInputEmail1" 
+     placeholder="What is your Pet name"
+     required
+     />
+     </div>
  
   <button type="submit" class="btn btn-primary">
-    Submit
+    REGISTER
 </button>
+
 </form>
 </div>
 </Layout>

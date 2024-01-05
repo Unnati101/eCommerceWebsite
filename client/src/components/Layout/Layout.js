@@ -35,4 +35,4 @@ Layout.defaultProps={
 
 };
 
-export default Layout
+export default Layout;
