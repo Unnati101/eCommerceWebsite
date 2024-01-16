@@ -13,7 +13,7 @@ const PageNotFound = () => {
       </Link>
     </div>
   </Layout>
-  );
+  ); 
 };
 
 export default PageNotFound;

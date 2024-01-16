@@ -24,7 +24,6 @@ router.get('/test', requireSignIn, isAdmin, testController); //two middlewares p
     res.status(200).send({ok:true});
  });
 
-
  //protected admin route auth dashboard
  router.get('/admin-auth' ,requireSignIn, isAdmin, (req,res)=>{
    res.status(200).send({ok:true});
