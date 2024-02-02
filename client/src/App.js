@@ -5,25 +5,26 @@ import Contact from './pages/Contact';
 import Policy from './pages/Policy';
 import PageNotFound from './pages/PageNotFound';
 import Register from './pages/Auth/Register'; 
-import { Login } from './pages/Auth/Login';
+import  Login  from './pages/Auth/Login';
 import Dashboard from './pages/user/Dashboard.js';
 import PrivateRoute from './components/Routes/PrivateRoute';
 import ForgotPassword from './pages/Auth/ForgotPassword';
 import AdminRoute from './components/Routes/AdminRoute';
-import  {AdminDashboard}  from './pages/Admin/AdminDashboard';
+import  AdminDashboard from './pages/Admin/AdminDashboard';
 import CreateCategory from './pages/Admin/CreateCategory';
 import CreateProduct from './pages/Admin/CreateProduct';
 import Users from './pages/Admin/Users';
 import Orders from './pages/user/Orders.js';
 import Profile from './pages/user/Profile.js';
-import Product from './pages/Admin/Product.js';
+import Products from './pages/Admin/Products.js';
+import  UpdateProduct  from './pages/Admin/UpdateProduct.js';
 function App() {
   return (
     <>
     <Routes>  
       <Route path = "/" element={<Homepage/>} />
       <Route path= "/dashboard" element={<PrivateRoute/>}>
-      <Route path= "user" element={<Dashboard/>}/>
+      <Route path= "/dashboard/user" element={<Dashboard/>}/>
       <Route path= "user/orders" element={<Orders/>}/>
       <Route path= "user/profile" element={<Profile/>}/>
       </Route>
@@ -31,7 +32,8 @@ function App() {
       <Route path= "admin" element={<AdminDashboard />} />
       <Route path= "admin/create-category" element={<CreateCategory/>} />
       <Route path= "admin/create-product" element={<CreateProduct/>} />
-      <Route path= "admin/product" element={<Product/>} />
+      <Route path= "admin/product/:slug" element={<UpdateProduct/>} />
+      <Route path= "admin/products" element={<Products/>} />
 
       <Route path= "admin/users" element={<Users/>} />
       </Route>
