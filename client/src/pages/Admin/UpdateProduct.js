@@ -72,7 +72,7 @@ export const UpdateProduct = () => {
         productData.append("quantity" , quantity)
        photo && productData.append("photo" , photo)
         productData.append("category" , category)
-        const {data} = axios.post(
+        const {data} = axios.put(
           `/api/v1/product/update-product/${id}`,
            productData
            );
@@ -81,7 +81,7 @@ export const UpdateProduct = () => {
         }else{
   
           toast.success("Product Updated Successfully");
-          navigate('/dashboard/admin/products');
+           navigate('/dashboard/admin/products');
         }
   
       }catch(error){
@@ -100,13 +100,14 @@ export const UpdateProduct = () => {
         <div className='col-md-3'>
         <h1>Update Product</h1>
         <div className='m-1 w-75'>
-          <Select bordered = {false}
+          <Select
+           bordered = {false}
           placeholder ="Select a Category"
           size='large'
           showSearch
           className='form-select mb-3 '
            onChange={(value)=>{ 
-            setCategory(value)
+            setCategory(value);
             }}
             value={category}
             
@@ -134,7 +135,8 @@ export const UpdateProduct = () => {
             {photo ? (
               <div className='text-center'>
                 <img
-                 src={`/api/v1/product/product-photo/${id}`}
+                 src={URL.createObjectURL(photo)}
+       
                 alt="product_photo"
                 height={"200px"}
                 className='img img-responsive'
@@ -143,7 +145,7 @@ export const UpdateProduct = () => {
             ):(
               <div className='text-center'>
                 <img
-                src={URL.createObjectURL(photo)}
+                src={`/api/v1/product/product-photo/${id}`}
                 alt="product_photo"
                 height={"200px"}
                 className='img img-responsive'
@@ -214,7 +216,7 @@ export const UpdateProduct = () => {
     </div>
     </div>
    </Layout>
-  )
+  ) 
 }
 
 export default UpdateProduct;
