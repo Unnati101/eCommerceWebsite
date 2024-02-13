@@ -40,11 +40,11 @@ const Homepage = () => {
   };
   //filter by category
   const handleFilter =(value,id)=>{
-    let all =[...checked]
+    let all =[...checked];
     if(value){
-    all.push(id)
+    all.push(id);
   }else{
-    all=all.filter((c)=> c!==id)
+    all=all.filter((c)=> c!==id);
   }
   setChecked(all);
 };
@@ -52,20 +52,24 @@ const Homepage = () => {
     if(!checked.length|| !radio.length) getAllProducts();
   }, [checked.length,radio.length]);
 
-  useEffect(()=>{
-    if(checked.length|| radio.length) filterProduct();
-  }, [checked,radio]);
+  useEffect(() => {
+    if (checked.length || radio.length) filterProduct();
+  }, [checked, radio]);
 
-
-  //get filtered products
-  const filterProduct =async ()=>{
-    try{
-      const {data} = await axios.post('/api/v1/product/product-filters',{checked,radio})
-      setProducts(data?.products)
-    }catch(error){
-      console.log(error)
+  //get filterd product
+  const filterProduct = async () => {
+    try {
+      const { data } = await axios.post("/api/v1/product/product-filters", {
+        checked,
+        radio,
+      });
+      setProducts(data?.products);
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
+
+ 
   return (
     <Layout title = {"All Products-Best offers"}>
      <div className='row mt-3'>
