@@ -4,22 +4,22 @@ import { createProductController, deleteProductController, getProductController,
 import formidable from 'express-formidable'
 
 
-const router =  express.Router()
+const router = express.Router()
 
 
 //routes
 router.route('/create-product')
-.post(requireSignIn,
- isAdmin, formidable(),
-  createProductController);
+  .post(requireSignIn,
+    isAdmin, formidable(),
+    createProductController);
 
-  router.route('/update-product/:pid')
-.put(requireSignIn,
- isAdmin, formidable(),
-  updateProductController);
+router.route('/update-product/:pid')
+  .put(requireSignIn,
+    isAdmin, formidable(),
+    updateProductController);
 
 //get products
-router.route('/get-product' ).get(getProductController);
+router.route('/get-product').get(getProductController);
 
 //get singlr product
 router.route('/get-product/:slug').get(getSingleProductController);
