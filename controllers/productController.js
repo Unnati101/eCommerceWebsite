@@ -226,7 +226,7 @@ export const updateProductController = async(req,res)=>{
     //product list base on page
     export const productListController = async(req,res)=>{
         try{
-               const perPage =6;
+               const perPage = 3; //initially only two products will be shown to the customer
                const page = req.params.page ? req.params.page : 1;
                const products = await productModel
                .find({})
@@ -244,6 +244,60 @@ export const updateProductController = async(req,res)=>{
                 message: 'error in per page ctrl',
                 error,
                 success: false
-            })
+            });
         }
-    }
+    };
+
+    //search product
+    export const searchProductController = async(req,res)=>{
+       try{
+            const { keyword }=req.params;
+            const results = await productModel
+            .find({
+                $or: [
+                    { name: { $regex: keyword, $options: "i"}},
+                    { description : {$regex: keyword, $options: "i"}},
+                ],
+            })
+            .select("-photo");
+            res.json(results);
+
+       }catch(error){
+        console.log(error);
+            res.status(400).send({
+                success: false,
+                message: 'Error in search Product API',
+                error
+            });
+        }
+       };
+    
+       //similar products
+       export const relatedProductController = async ()=>{
+        try{
+            const{pid,cid} =req.params;
+            const products = await productModel
+            .find({
+                category: cid,
+                _id: {$ne: pid},
+            })
+            .select("-photo")
+                .limit(3)
+                .populate('category');
+                res.status(200).send({
+                    success: true,
+                    products,
+
+                });
+            
+        }catch(error){
+            console.log(error);
+                res.status(400).send({
+                    success: false,
+                    message: 'error while getting similar products',
+                    error,
+
+                });
+            }
+        };
+       

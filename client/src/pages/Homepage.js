@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../components/Layout/Layout'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { Checkbox, Radio } from 'antd';
 import { Prices } from '../components/Prices';
 
 const Homepage = () => {
+  const navigate =useNavigate();
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
   const [products, setProducts] = useState([]);
@@ -40,7 +42,7 @@ const Homepage = () => {
   const getAllProducts = async () => {
     try {
       setLoading(true)
-      const { data } = await axios.get('/api/v1/product/get-product');
+      const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
       setLoading(false)
       setProducts(data.products);
     } catch (error) {
@@ -63,6 +65,28 @@ const Homepage = () => {
       console.log(error);
     }
   };
+
+  useEffect(()=>{
+    if(page===1) return;
+    loadMore();
+
+
+  }, [page]);
+
+  //load more
+  const loadMore =async () =>{
+    try {
+      setLoading(true);
+      const {data} = await axios.get(`api/v1/product/product-list/${page}`);
+      setLoading(false);
+      setProducts([...products, ...data?.products]);
+    }catch(error){
+      console.log(error);
+      setLoading(false);
+    }
+    
+  };
+  
 
   //filter by category
   const handleFilter = (value, id) => {
@@ -150,7 +174,10 @@ const Homepage = () => {
                   <h5 class="card-title">{p.name}</h5>
                   <p className="card-text">{p.description.substring(0, 30)}...</p>
                   <p className="card-text">{p.price}</p>
-                  <button class="btn btn-primary ms-1">More Details</button>
+                  <button class="btn btn-primary ms-1" 
+                  onClick={()=>navigate(`/product/${p.slug}`)}>
+                  More Details
+                  </button>
                   <button class="btn btn-secondary ms-1">Add to cart</button>
                 </div>
               </div>
