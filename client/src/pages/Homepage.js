@@ -20,7 +20,7 @@ const Homepage = () => {
   //get all category
   const getAllCategory = async (req, res) => {
     try {
-      const { data } = await axios.get('/api/v1/category/get-category')
+      const { data } = await axios.get('https://ecom-back-hel6.onrender.com/api/v1/product/get-product')
       if (data?.success) {
         setCategories(data?.category);
       }
